@@ -4,7 +4,7 @@ import { HeaderTag } from "./styles"
 export default function Header() {
     return(
         <HeaderTag>
-            <img src={logo}/>
+            <img src={logo} alt="logo da atmosmarine"/>
         </HeaderTag>
     )
 }
