@@ -1,21 +1,29 @@
-FROM node:16
+FROM node:16.13.1-alpine as build
 
-FROM node:16
+WORKDIR /app
 
-WORKDIR /tmp/react
+ENV PATH /app/node_modules/.bin:$PATH
 
-COPY . .
+COPY package.json ./
 
-RUN npm i
+COPY package-lock.json ./
 
-RUN chmod a+x /tmp/react/node_modules/.bin/react-scripts 
+RUN npm ci --silent
+
+RUN npm install react-scripts -g --silent
+
+COPY . ./
 
 RUN npm run build
 
-RUN mkdir -p /var/www/html
 
-RUN mv build/* /var/www/html
 
-WORKDIR / 
 
-RUN rm -rf /tmp/react 
+
+FROM nginx:stable-alpine
+
+COPY --from=build /app/build /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD [ "nginx", "-g", "daemon off;" ]
