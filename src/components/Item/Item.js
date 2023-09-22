@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { BoxProcess, ItemTag } from "./styles";
 import axios from "axios";
+import { URL_API } from "../../constants/url_api";
 
 export default function Item() {
     const [boxesList, setboxesList] = useState([]);
@@ -13,7 +14,7 @@ export default function Item() {
             },
           };
 
-        const promise = axios.get("http://164.152.62.95:5000/logs", config);
+        const promise = axios.get(`${URL_API}/logs`, config);
 
         promise.then(res => {
             console.log(res.data);
@@ -27,7 +28,7 @@ export default function Item() {
     return(
         <ItemTag>
             {boxesList.map( b => (
-                <BoxProcess cor={"grey"}>
+                <BoxProcess key={b._id} cor={"grey"}>
                     Teste
                 </BoxProcess>
             ))}
