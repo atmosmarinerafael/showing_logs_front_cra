@@ -22,7 +22,7 @@ export default function Item() {
         
         promise.catch(err => console.log(err.response.data));
 
-    }, [boxesList]);
+    }, []);
 
     return(
         <ItemTag>
