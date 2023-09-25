@@ -2,6 +2,8 @@ import { useState } from "react"
 import { URL_API } from "../../constants/url_api";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Button, FormContainer, SignInPageStyles, Container, Input } from "./styles";
+import logo from "../../assets/images/logo_atm.png"
 
 export default function SignInPage() {
     const [username, setUsername] = useState(undefined);
@@ -29,22 +31,27 @@ export default function SignInPage() {
 
 
     return(
-        <>
-            <form>
-                <input
-                    placeholder="Usuário"
-                    type="text"
-                    onChange={e => setUsername(e.target.value)}
-                ></input>
-                <input
-                    placeholder="Senha"
-                    type="password"
-                    onChange={e => setPassword(e.target.value)}
-                ></input>
-                <button>
-                    Entrar
-                </button>
-            </form>
-        </>
+        <SignInPageStyles>
+            <Container>
+                <img src={logo} alt="logo da atmosmarine"/>
+                <FormContainer>
+                    <Input
+                        placeholder="Usuário"
+                        type="text"
+                        onChange={e => setUsername(e.target.value)}
+                    ></Input>
+                    <Input
+                        placeholder="Senha"
+                        type="password"
+                        onChange={e => setPassword(e.target.value)}
+                    ></Input>
+                    <Button>
+                        Entrar
+                    </Button>
+                </FormContainer>
+                
+                
+            </Container>
+        </SignInPageStyles>
     )
 }
