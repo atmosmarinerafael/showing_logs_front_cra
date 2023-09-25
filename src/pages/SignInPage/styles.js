@@ -38,14 +38,6 @@ export const Input = styled.input`
     background-color: #E6E6E6;
     padding: 0 2.5%;
 
-    &::placeholder {
-
-    }
-
-    &:focus {
-       
-    }
-
 `
 
 export const Button = styled.button`
