@@ -17,7 +17,6 @@ export default function Item() {
         const promise = axios.get(`${URL_API}/logs`, config);
 
         promise.then(res => {
-            console.log(res.data);
             setboxesList(res.data);
         });
         

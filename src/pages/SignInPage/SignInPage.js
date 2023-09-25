@@ -1,32 +1,51 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { URL_API } from "../../constants/url_api";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Button, FormContainer, SignInPageStyles, Container, Input } from "./styles";
-import logo from "../../assets/images/logo_atm.png"
+import logo from "../../assets/images/logo_atm.png";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function SignInPage() {
     const [username, setUsername] = useState(undefined);
     const [password, setPassword] = useState(undefined);
+    const [isDisabled, setIsDisabled] = useState(false);
     const navigate = useNavigate();
 
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+
+        if(token) {
+            navigate("/");
+        }
+    }, [])
+
+    
 
     function sendData(e) {
         e.preventDefault();
+        setIsDisabled(true);
 
         const body = {
             username, 
-            password: password.toString()
+            password
         }
 
         const promise = axios.post(`${URL_API}/sign-in`, body);
 
-        promise.then(() => {
-            alert("Login realizado com sucesso!");
-            navigate("/logs");
+        promise.then((res) => {
+            setIsDisabled(false);
+            localStorage.setItem("token", res.data.token);
+            toast("Login realizado com sucesso!");
+            navigate("/");
         });
 
-        promise.catch(err => console.log(err.response.data));
+        promise.catch((err) => {
+            console.log(err.response.data)
+            toast("deu ruim")
+            setIsDisabled(false);
+        });
     }
 
 
@@ -34,7 +53,7 @@ export default function SignInPage() {
         <SignInPageStyles>
             <Container>
                 <img src={logo} alt="logo da atmosmarine"/>
-                <FormContainer>
+                <FormContainer onSubmit={sendData}>
                     <Input
                         placeholder="Usuário"
                         type="text"
@@ -45,13 +64,14 @@ export default function SignInPage() {
                         type="password"
                         onChange={e => setPassword(e.target.value)}
                     ></Input>
-                    <Button>
+                    <Button type="submit" disabled={isDisabled}>
                         Entrar
                     </Button>
                 </FormContainer>
                 
                 
             </Container>
+            
         </SignInPageStyles>
     )
 }
