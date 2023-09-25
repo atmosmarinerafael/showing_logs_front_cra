@@ -8,9 +8,11 @@ export default function Item() {
     
 
     useEffect(() => {
+        const token = localStorage.getItem("token");
+
         const config = {
             headers: {
-              Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTBkOGIxMDYyZDdkOTJlOTA5ZjdiODMiLCJpYXQiOjE2OTUzODYzOTN9.7USnSqFX3Y6zJf4eWqTfi2ZWsulWQBlRebU3gTRd-T8`,
+              Authorization: `Bearer ${token}`,
             },
           };
 
