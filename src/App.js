@@ -1,7 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import GlobalStyle from "./assets/styles/GlobalStyle";
 import HomePage from "./pages/HomePage/HomePage";
-import { TestePage } from "./pages/TestePage.js/TestePage";
+import SignInPage from "./pages/SignInPage/SignInPage";
+
 
 function App() {
   return (
@@ -9,7 +10,8 @@ function App() {
       <GlobalStyle />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/teste" element={<TestePage />} />
+        <Route path="/sign-in" element={<SignInPage />} />
+
       </Routes>
     </BrowserRouter>
   );
