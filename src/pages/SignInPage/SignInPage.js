@@ -13,12 +13,22 @@ export default function SignInPage() {
     const [isDisabled, setIsDisabled] = useState(false);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const token = localStorage.getItem("token");
+    const [teste, setTeste] = useState(undefined);
 
-        if(token) {
-            navigate("/");
-        }
+    useEffect(() => {
+
+        const promise = axios.get(`${process.env.REACT_APP_BACK_END_URL}/`)
+
+        promise.then((res) => {
+            console.log(res.data)
+            setTeste(res.data);
+        })
+
+        // const token = localStorage.getItem("token");
+
+        // if(token) {
+        //     navigate("/");
+        // }
     }, [])
 
     
@@ -51,6 +61,7 @@ export default function SignInPage() {
 
     return(
         <SignInPageStyles>
+            <p>{teste}</p>
             <Container>
                 <img src={logo} alt="logo da atmosmarine"/>
                 <FormContainer onSubmit={sendData}>
