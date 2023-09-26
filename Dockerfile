@@ -1,28 +1,27 @@
-FROM node
+FROM node:16.13.1-alpine as build
 
-# pasta para onde vai o build
-WORKDIR /tmp/react
+WORKDIR /app
 
-# copia os arquivos para dentro da pasta WORKDIR
-COPY . .
+ENV PATH /app/node_modules/.bin:$PATH
 
-# instala as dependências do projeto
-RUN npm i
+COPY package.json ./
 
-#bugfix - enquanto usamos o CRA para buildar
-RUN chmod a+x /tmp/react/node_modules/.bin/react-scripts 
+COPY package-lock.json ./
 
-# criamos a versão otimizada de produção
+RUN npm ci --silent
+
+RUN npm install react-scripts -g --silent
+
+COPY . ./
+
 RUN npm run build
 
-# cria todo o caminho (-p) da pasta que será servida pelo nginx
-RUN mkdir -p /var/www/html
 
-# move o conteúdo
-RUN mv build/* /var/www/html
 
-# sai da pasta
-WORKDIR /
+FROM nginx:stable-alpine
 
-# remove todo o diretório de desenvolvimento
-RUN rm -rf /tmp/react
+COPY --from=build /app/build /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD [ "nginx", "-g", "daemon off;" ]
