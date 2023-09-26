@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { URL_API } from "../../constants/url_api";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Button, FormContainer, SignInPageStyles, Container, Input } from "./styles";
@@ -13,22 +12,12 @@ export default function SignInPage() {
     const [isDisabled, setIsDisabled] = useState(false);
     const navigate = useNavigate();
 
-    const [teste, setTeste] = useState(undefined);
-
     useEffect(() => {
+        const token = localStorage.getItem("token");
 
-        const promise = axios.get(`${process.env.REACT_APP_BACK_END_URL}/`)
-
-        promise.then((res) => {
-            console.log(res.data)
-            setTeste(res.data);
-        })
-
-        // const token = localStorage.getItem("token");
-
-        // if(token) {
-        //     navigate("/");
-        // }
+        if(token) {
+            navigate("/");
+        }
     }, [])
 
     
@@ -42,7 +31,7 @@ export default function SignInPage() {
             password
         }
 
-        const promise = axios.post(`${URL_API}/sign-in`, body);
+        const promise = axios.post(`${process.env.REACT_APP_BACK_END_URL}/sign-in`, body);
 
         promise.then((res) => {
             setIsDisabled(false);
@@ -61,7 +50,6 @@ export default function SignInPage() {
 
     return(
         <SignInPageStyles>
-            <p>{teste}</p>
             <Container>
                 <img src={logo} alt="logo da atmosmarine"/>
                 <FormContainer onSubmit={sendData}>

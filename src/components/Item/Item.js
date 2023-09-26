@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { BoxProcess, ItemTag } from "./styles";
 import axios from "axios";
-import { URL_API } from "../../constants/url_api";
+
 
 export default function Item() {
     const [boxesList, setboxesList] = useState([]);
@@ -16,7 +16,7 @@ export default function Item() {
             },
           };
 
-        const promise = axios.get(`${URL_API}/logs`, config);
+        const promise = axios.get(`${process.env.REACT_APP_BACK_END_URL}/logs`, config);
 
         promise.then(res => {
             setboxesList(res.data);
