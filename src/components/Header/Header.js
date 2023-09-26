@@ -6,14 +6,7 @@ import { useEffect } from "react";
 export default function Header() {
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const token = localStorage.getItem("token");
-
-        if(!token) {
-            navigate("/sign-in");
-        }
-    }, [])
-
+    
     function handleLogout() {
         localStorage.clear();
         navigate("/sign-in");

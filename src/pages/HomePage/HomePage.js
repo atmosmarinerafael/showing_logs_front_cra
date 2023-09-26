@@ -1,11 +1,24 @@
+import { useEffect } from "react";
 import Header from "../../components/Header/Header";
-import Item from "../../components/Item/Item";
+import Itens from "../../components/Itens/Itens";
+import { useNavigate } from "react-router-dom";
 
 export default function HomePage() {
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+
+        if(!token) {
+            navigate("/sign-in");
+        }
+    }, [])
+
     return (
         <>
             <Header />
-            <Item />
+            <Itens />
             
         </>
     )
