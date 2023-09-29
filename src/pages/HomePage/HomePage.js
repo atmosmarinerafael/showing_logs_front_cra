@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import Header from "../../components/Header/Header";
 import Itens from "../../components/Itens/Itens";
 import { useNavigate } from "react-router-dom";
+import ServerTaskComponent from "../../components/ServerComponent/ServerComponent";
 
 export default function HomePage() {
 
@@ -18,8 +19,8 @@ export default function HomePage() {
     return (
         <>
             <Header />
-            <Itens />
-            
+            {/* <Itens /> */}
+            <ServerTaskComponent />            
         </>
     )
 }

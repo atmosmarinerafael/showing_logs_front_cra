@@ -20,8 +20,6 @@ export default function SignInPage() {
         }
     }, [])
 
-    
-
     function sendData(e) {
         e.preventDefault();
         setIsDisabled(true);
@@ -30,6 +28,7 @@ export default function SignInPage() {
             username, 
             password
         }
+        
 
         const promise = axios.post(`${process.env.REACT_APP_BACK_END_URL}/sign-in`, body);
 
