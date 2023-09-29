@@ -27,11 +27,11 @@ export default function ServerTaskComponent() {
     }, [])
 
     return(<ServerComponentStyles>
-        <h1>LEME</h1>
+        <h1>LEME - GFS</h1>
         <ContainerTasks>
             {taskList?.map( task => 
             <TaskTag key={task._id}>
-                <BoxProcess >
+                <BoxProcess color={task.status === "start" ? "grey" : "green"}>
                     <p>{task.process}</p>
                     <p>{task.status}</p>
                 </BoxProcess>
